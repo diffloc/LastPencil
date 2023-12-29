@@ -1,8 +1,12 @@
 package lastpencil;
 
 public class Main {
+
+    private static UI ui;
+
     public static void main(String[] args) {
-        PencilGame game = new PencilGame();
-        game.startGame();
+        ui = new UI();
+        ui.initializeGame();
+        ui.startGame();
     }
 }
