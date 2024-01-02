@@ -62,9 +62,27 @@ public class Game {
     }
 
     public void pencilsToTake(int numPencils) {
+        if (numPencils < 1 || numPencils > 3) {
+            throw new IllegalArgumentException("Possible values: '1', '2' or '3'");
+        }
+        if (numPencils > pencils.getNumPencils()) {
+            throw new IllegalArgumentException("Too many pencils were taken");
+        }
         pencils.takePencils(numPencils);
-        if (pencils.getNumPencils() <= 0) {
+
+        if (pencils.getNumPencils() == 0) {
+            switchPlayer();
+            System.out.printf("%s won!", getCurrentPlayer());
             this.running = false;
+        }
+    }
+
+    public void validatePencils(int numPencils) {
+        if (numPencils < 1 || numPencils > 3) {
+            throw new IllegalArgumentException("Possible values: '1', '2' or '3'");
+        }
+        if (numPencils > pencils.getNumPencils()) {
+            throw new IllegalArgumentException("Too many pencils were taken");
         }
     }
 }

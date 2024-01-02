@@ -32,29 +32,31 @@ public class UI {
     }
 
     public void promptForPencils() {
+        System.out.println("How many pencils would you like to use:");
         while (true) {
-            System.out.println("How many pencils would you like to use:");
+
             try {
                 int numPencils = Integer.parseInt(userInput.nextLine());
-                game.setPencils(numPencils); // This will throw IllegalArgumentException if numPencils < 1
-                break; // If valid, break out of the loop
+                game.setPencils(numPencils);
+                break;
             } catch (NumberFormatException e) {
-                System.out.println("The number of pencils must be an integer. Please try again.");
+                System.out.println("The number of pencils should be numeric");
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage() + " Please try again.");
+                System.out.println(e.getMessage());
             }
         }
     }
 
     public void promptForFirstPlayer() {
+        System.out.printf("Who will be the first (%s, %s):\n", game.getPlayer1Name(), game.getPlayer2Name());
         while (true) {
             try {
-                System.out.printf("Who will be the first (%s, %s):\n", game.getPlayer1Name(), game.getPlayer2Name());
+
                 String firstPlayerName = userInput.nextLine();
                 game.setCurrentPlayer(firstPlayerName);
                 break; // If valid, break out of the loop
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage() + " - Please try again.");
+                System.out.printf("Choose between '%s' and '%s'\n", game.getPlayer1Name(), game.getPlayer2Name());
             }
         }
     }
@@ -62,9 +64,19 @@ public class UI {
     public void startGame() {
         while (game.getRunning()) {
             game.displayPencils();
-            System.out.printf("%s's turn:\n", game.getCurrentPlayer());
-            // TODO: validate pencilsToTake integer (try..catch)
-            game.pencilsToTake(Integer.parseInt(userInput.nextLine()));
+            System.out.printf("%s's turn!\n", game.getCurrentPlayer());
+
+
+            while (true) {
+                try {
+                    game.pencilsToTake(Integer.parseInt(userInput.nextLine()));
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Possible values: '1', '2' or '3'");
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
             game.switchPlayer();
         }
     }

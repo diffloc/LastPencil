@@ -6,7 +6,7 @@ public class Pencils {
 
     public Pencils(int numPencils) {
         if (numPencils < 1) {
-            throw new IllegalArgumentException("Number of pencils must be at least 1");
+            throw new IllegalArgumentException("The number of pencils should be positive");
         }
         this.numPencils = numPencils;
     }
